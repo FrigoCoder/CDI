@@ -9,6 +9,7 @@
 
     <modules>
         <module>01-Basic</module>
+        <module>02-Goodbye</module>
     </modules>
 
     <properties>
@@ -100,6 +101,7 @@
                     <include>usr</include>
                     <installAppPackages>all</installAppPackages>
                     <looseApplication>true</looseApplication>
+                    <stripVersion>true</stripVersion>
                 </configuration>
             </plugin>
         </plugins>

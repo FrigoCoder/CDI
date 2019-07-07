@@ -8,7 +8,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cdi-01-basic</artifactId>
+    <artifactId>cdi-02-goodbye</artifactId>
     <packaging>war</packaging>
 
 </project>
