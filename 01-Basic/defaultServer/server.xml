@@ -1,0 +1,8 @@
+<server>
+    <applicationManager autoExpand="true"/>
+    <featureManager>
+        <feature>javaee-8.0</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+    <httpEndpoint host="*" httpPort="80" id="defaultHttpEndpoint"/>
+</server>
