@@ -1,0 +1,15 @@
+
+https://www.baeldung.com/java-ee-cdi
+
+http://www.cdi-spec.org/
+http://www.cdi-spec.org/download/
+https://docs.jboss.org/cdi/spec/1.1/cdi-spec.html
+https://docs.jboss.org/cdi/spec/1.2/cdi-spec-1.2.pdf
+https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html
+https://docs.jboss.org/cdi/spec/2.0/cdi-spec.pdf
+
+https://github.com/cdi-spec
+https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html
+https://weld.cdi-spec.org/
+https://www.javacodegeeks.com/cdi-tutorials
+https://dzone.com/refcardz/contexts-and-depencency
