@@ -1,0 +1,528 @@
+Introducing Contexts and Dependency Injection
+https://www.youtube.com/watch?v=pQnXSsyxq8U
+
+----
+
+CDI:
+Standard for DI, AOP, and event bus 
+Java EE 6 central feature
+Created to tie together various Java EE technologies
+TODO type safety etc
+
+----
+
+CDI 1.0 (Java EE 6)
+CDI 1.1 (Java EE 7)
+CDI 1.2 (1.1 MR)
+CDI 2.0
+
+----
+
+JBoss Weld (Reference implementation):
+Glassfish
+WildFly
+AS7?
+JBoss
+Oracle Fusion Middleware
+
+Apache OpenWebBeans:
+Apache TomEE
+Apache Geronimo
+IBM Websphere
+Glonass? Jonas?
+
+Caucho CanDI
+
+----
+
+CDI 1.0 (Java EE 6) you need to add a beans.xml to enable CDI
+CDI 1.1 (Java EE 7) it is activated by default
+
+----
+
+In Java EE 6 and 7 everything is a Managed Bean
+
+Managed beans are basic components
+They are managed by the container
+They all have a lifecycle
+They can be intercepted (AOP)
+They can be injected
+Accessible from outside CDI code
+
+---
+
+Basic dependency Injection
+
+This is a bean
+
+public class HelloService {
+    public String hello () {
+        return "Hello World!";
+    }
+}
+
+----
+
+DI in constructor
+
+public class MyBean {
+    private HelloService service;
+    @Inject
+    public MyBean (HelloService service) {
+        this.service = service;
+    }
+}
+
+----
+
+DI in setter
+
+public class MyBean {
+    private HelloService service;
+    @Inject
+    public void setService (HelloService service) {
+        this.service = service;
+    }
+}
+
+----
+
+DI in field
+
+public MyBean {
+    @Inject
+    private HelloService service;
+    public void displayHello () {
+        display(service.hello());
+    }
+}
+
+----
+
+No type erasure in CDI
+
+public class MyBean {
+    @Inject Service<User> userService;
+    @Inject Service<Staff> staffService;
+}
+
+----
+
+Using qualifiers to distinguish beans of the same type
+
+public interface HelloService {
+    public String hello();
+}
+
+public class FrenchHelloService implements HelloService {
+    public String hello() {
+        return "Bonjour tout le monde!";
+    }
+}
+
+public class EnglishHelloService implements HelloService {
+    public String hello(){
+        return "Hello World!";
+    }
+}
+
+----
+
+...Need qualifiers...
+
+@Qualifier
+@Retention(RUNTIME)
+@Target({FIELD, TYPE, METHOD, PARAMETER})
+public @interface French {}
+
+@Qualifier
+@Retention(RUNTIME)
+@Target({FIELD, TYPE, METHOD, PARAMETER})
+public @interface English {}
+
+----
+
+...To be distinguished
+
+@French
+public class FrenchHelloService implements HelloService {
+    public String hello(){
+        return "Bonjour tout le monde!";
+    }
+}
+
+@English
+public class EnglishHelloService implements HelloService {
+    public String hello() {
+        return "Hello World!";
+    }
+}
+
+----
+
+Qualified injection points
+
+public class MyBean {
+    @Inject @French HelloService service;
+    public void displayHello(){
+        display(service.hello());
+    }
+}
+
+public class MyBean {
+    @Inject @English HelloService service;
+    public void displayHello(){
+        display(service.hello());
+    }
+}
+
+----
+
+Qualifiers can have members
+
+@Qualifier
+@Retention(RUNTIME)
+@Target({FIELD, TYPE, METHOD, PARAMETER})
+public @interface Language {
+    Languages value();
+    @Nonbinding String description() default "";
+    public enum Languages {
+        FRENCH, ENGLISH
+    }
+}
+
+----
+
+Qualifiers with members 1/2
+
+@Language(French)
+public class FrenchHelloService implements HelloService {
+    public String hello(){
+        return "Bonjour tout le monde!";
+    }
+}
+
+@Language(English)
+public class EnglishHelloService implements HelloService {
+    public String hello() {
+        return "Hello World!";
+    }
+}
+
+----
+
+Qualifiers with members 2/2
+
+public class MyBean {
+    @Inject @Language(FRENCH) HelloService service;
+    public void displayHello(){
+        display(service.hello());
+    }
+}
+
+public class MyBean {
+    @Inject @Language(English) HelloService service;
+    public void displayHello(){
+        display(service.hello());
+    }
+}
+
+----
+
+Multiple qualifiers
+
+public class MyBean {
+    @Inject @French
+    HelloService service;
+}
+
+@French @Console @Secured
+public class FrenchHelloService implements HelloService {
+}
+
+----
+
+Multiple qualifiers
+
+public class MyBean {
+    @Inject @French @Console @Secured 
+    HelloService service;
+}
+
+@French @Secured
+public class FrenchHelloService implements HelloService {
+}
+
+All qualifiers have to match!
+
+----
+
+Reserved qualifiers
+
+@Default
+@Any
+@Named
+
+@Named exposes the bean for JSF, JSP, EL.
+
+----
+
+Programmatic lookup
+
+Sometime scalled "lazy injection"
+
+public class MyBean {
+    @Inject Instance<HelloService> service;
+    public void displayHello () {
+        display(service.get().hello());
+    }
+}
+
+----
+
+Check bean existence at runtime
+
+public class MyBean {
+    @Inject Instance<HelloService> service;
+    public void displayHello () {
+        if(!service.isUnsatisfied()){
+            display(service.get().hello());
+        }
+    }
+}
+
+----
+
+Instance<T> is iterable.
+
+...
+
+---
+
+Loop on all beans of a given type
+
+public class MyBean {
+    @Inject @Any Instance<HelloService> services;
+    public void displayHello () {
+        for (HelloService service : services) {
+            display(service.hello());
+        }
+    }
+}
+
+----
+
+Select a qualifier at runtime
+
+public class MyBean {
+    @Inject @Any Instance<HelloService> services;
+    public void displayHello () {
+        display(service.select(
+            new AnnotationLiteral()<French> {}
+        ).get());
+    }
+}
+
+----
+
+Contexts
+
+They help container to choose when a bean should be instantiated and destroyed.
+
+They enforce the fact that a given bean is a singleton for a given context.
+
+Built-in CDI contexts:
+- @Dependent (default)
+- @ApplicationScoped, @SessionScoped, @RequestScoped
+- @ConversationScoped
+- @Singleton
+
+You can create your own scope.
+
+More or less linked to the Servlet specification.
+
+----
+
+Choosing the right context
+
+@SessionScoped
+public class CartBean {
+    public void addItem(Item item){
+        ...
+    }
+}
+
+@ApplicationScoped: all users share the same shopping cart.
+@ConversationScoped: one different shopping cart per window open.
+@ThreadScoped: Some Weld specific bullshit.
+
+You can insert beans into beans with different scopes.
+@AS into @RS, or @RS into @AS.
+
+Always the correct context is chosen, proxies are used to ensure correctness. Well, more or less.
+
+----
+
+Creating bean from any class
+
+@Produces
+public MyNonCDIClass myProducer () {
+    return new MyNonCdiClass();
+}
+...
+@Inject
+MyNonCDIClass bean;
+
+----
+
+Producers may have a scope
+
+@Produces
+@RequestScoped
+public FacesContext producesFacesContext () {
+    return FacesContext.getCurrentInstance();
+}
+
+----
+
+Getting info from injection points
+
+@Produces
+public Logger produceLog(InjectionPoint injectionPoint){
+    return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+}
+
+Provides information about the point where the bean has been injected.
+
+Class, constructor or method, parameters metadata.
+
+----
+
+Remember: No type erasure.
+
+@Producers
+public <K, V> Map<K, V> produceMap(InjectionPoint ip){
+    if (valueIsNumber(ip.getType())) {
+        return new TreeMap<K, V>();
+    }
+    return new HashMap<K, V>();
+}
+
+----
+
+Events
+
+public class FirstBean {
+    @Inject Event<Post> postEvent;
+    public void saveNewPost(Post myPost){
+        postEvent.fire(myPost);
+    }
+}
+
+public class SecondBean {
+    public void listenPost (@Observes Post post){
+        System.out.println("Received: " + evt. message());
+    }
+}
+
+Events do not depend on the scope.
+The message does not need to be a bean.
+It can be a bean but you need to be cautious.
+Context issues can arise.
+
+----
+
+Events can be Qualified
+
+public class FirstBean {
+    @Inject Event<Post> postEvent;
+    public void saveNewPost(Post myPost){
+        postEvent.select(new AnnotationLiteral()<French>{}).fire(myPost);
+    }
+}
+
+public class SecondBean {
+    // These 3 observers will be called
+    public void listenFrPost(@Observes @French Post post) {}
+    public void listenPost(@Observes Post post) {}
+    public void listenObject(@Observes Object obj) {}
+    // This one won't be called
+    public void listenEnPost(@Observes @English Post post) {}
+}
+
+----
+
+As always "no type erasure"
+
+public class SecondBean {
+    // these observers will be resolved depending
+    // on parameter in event payload type
+    public void listenStrPost(@Observes Post<String> post) {}
+    public void listenNumPost(@Observes Post<Number> post) {}
+}
+
+----
+
+Some built-in events
+
+public class SecondBean {
+    public void beginRequest(@Observes @Initialized(RequestScoped.class) ServletRequest req) {}
+    public void endRequest(@Observes @Destroyed(RequestScoped.class) HttpSession req) {}
+    public void beginSession(@Observes @Initialized(SessionScoped.class) ServletRequest req) {}
+    public void endSession(@Observes @Destroyed(SessionScoped.class) HttpSession req) {}
+}
+
+-----
+
+Decorators & Interceptors
+
+A Decorators
+
+@Decorator
+@Priority(Interceptor.Priority.APPLICATION)
+public class HelloDecorator implements HelloService {
+    //  The decorated service may be restricted with qualifiers
+    @Inject @Delegate HelloService service;
+    public String hello() {
+        return service.hello() + "-decorated";
+    }
+}
+
+----
+
+Interceptor Binding...
+
+@InterceptorBinding
+@Target({METHOD, TYPE})
+@Retention(RUNTIME)
+public @interface Loggable {}
+
+-----
+
+...is used to bind an Interceptor
+
+@Interceptor @Loggable
+@Priority(Interceptor.Priority.APPLICATION)
+public class LogInterceptor {
+    @AroundInvoke
+    public Object log(InvocationContext ic) throws Exception {
+        System.out.println("Entering " + ic.getMethod().getName());
+        try{
+            return ic.proceed();
+        }finally{
+            System.out.println("Exiting " + ic.getMethod().getName());
+        }
+    }
+}
+
+----
+
+It can be put on class or method
+
+@Loggable
+public class MyBean {
+    @Inject HelloService service;
+    public void displayHello() {
+        display(service.hello());
+    }
+}
