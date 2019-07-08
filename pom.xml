@@ -12,69 +12,6 @@
         <module>02-Goodbye</module>
     </modules>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.compilerArgument>-parameters</maven.compiler.compilerArgument>
-        <maven.compiler.useIncrementalCompilation>false</maven.compiler.useIncrementalCompilation>
-        <maven.test.failure.ignore>true</maven.test.failure.ignore>
-    </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.test-framework</groupId>
-            <artifactId>jersey-test-framework-core</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jglue.cdi-unit</groupId>
-            <artifactId>cdi-unit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se-core</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.module</groupId>
-            <artifactId>weld-web</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
-
     <build>
 
         <plugins>
@@ -90,11 +27,11 @@
                         <version>19.0.0.5</version>
                         <type>zip</type>
                     </assemblyArtifact>
-                    <assemblyInstallDirectory>${maven.multiModuleProjectDirectory}</assemblyInstallDirectory>
+                    <assemblyInstallDirectory>${project.basedir}</assemblyInstallDirectory>
                     <bootstrapProperties>
                         <server.start.wait.time>180</server.start.wait.time>
                     </bootstrapProperties>
-                    <configDirectory>${maven.multiModuleProjectDirectory}/defaultServer</configDirectory>
+                    <configDirectory>${project.basedir}/defaultServer</configDirectory>
                     <features>
                         <acceptLicense>true</acceptLicense>
                     </features>
