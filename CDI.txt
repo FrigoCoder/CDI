@@ -13,3 +13,10 @@ https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html
 https://weld.cdi-spec.org/
 https://www.javacodegeeks.com/cdi-tutorials
 https://dzone.com/refcardz/contexts-and-depencency
+
+----
+
+HelloService (English, French)
+MessageService (Email, SMS, ...): http://www.javacreed.com/why-should-we-use-dependency-injection/
+CoffeMaker: https://medium.com/@yostane/dependency-injection-with-dagger-2-inject-and-provides-ce21f7449ec5
+Database backup
