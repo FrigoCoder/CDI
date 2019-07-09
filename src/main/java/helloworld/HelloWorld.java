@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 public class HelloWorld {
 
     @GET
-    @Path("hello")
+    @Path("hello") 
     public String hello () {
         return "Hello World!";
     }

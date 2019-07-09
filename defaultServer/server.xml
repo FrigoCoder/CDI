@@ -5,4 +5,5 @@
         <feature>localConnector-1.0</feature>
     </featureManager>
     <httpEndpoint host="*" httpPort="80" id="defaultHttpEndpoint"/>
+    <webApplication contextRoot="/" location="CDI.war"/>
 </server>
