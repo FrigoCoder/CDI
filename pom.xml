@@ -75,6 +75,7 @@
         <finalName>CDI</finalName>
 
         <plugins>
+
             <plugin>
                 <groupId>net.wasdev.wlp.maven.plugins</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
@@ -91,70 +92,66 @@
                     <bootstrapProperties>
                         <server.start.wait.time>180</server.start.wait.time>
                     </bootstrapProperties>
-                    <configDirectory>${project.basedir}/defaultServer</configDirectory>
+                    <configDirectory>defaultServer</configDirectory>
                     <features>
                         <acceptLicense>true</acceptLicense>
                     </features>
                     <include>usr</include>
                     <installAppPackages>all</installAppPackages>
                     <looseApplication>true</looseApplication>
-                    <stripVersion>true</stripVersion>
                 </configuration>
             </plugin>
-        </plugins>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                                        <artifactId>liberty-maven-plugin</artifactId>
-                                        <versionRange>[1.0.0,)</versionRange>
-                                        <goals>
-                                            <goal>liberty:install-server</goal>
-                                            <goal>liberty:create-server</goal>
-                                            <goal>liberty:start</goal>
-                                            <goal>liberty:start-server</goal>
-                                            <goal>liberty:test-start-server</goal>
-                                            <goal>liberty:run</goal>
-                                            <goal>liberty:run-server</goal>
-                                            <goal>liberty:stop</goal>
-                                            <goal>liberty:stop-server</goal>
-                                            <goal>liberty:test-stop-server</goal>
-                                            <goal>liberty:debug</goal>
-                                            <goal>liberty:debug-server</goal>
-                                            <goal>liberty:package-server</goal>
-                                            <goal>liberty:clean-server</goal>
-                                            <goal>liberty:dump-server</goal>
-                                            <goal>liberty:java-dump-server</goal>
-                                            <goal>liberty:deploy</goal>
-                                            <goal>liberty:undeploy</goal>
-                                            <goal>liberty:install-feature</goal>
-                                            <goal>liberty:uninstall-feature</goal>
-                                            <goal>liberty:install-apps</goal>
-                                            <goal>liberty:compile-jsp</goal>
-                                            <goal>liberty:display-url</goal>
-                                            <goal>liberty:status</goal>
-                                            <goal>liberty:server-status</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <lifecycleMappingMetadata>
+                        <pluginExecutions>
+                            <pluginExecution>
+                                <pluginExecutionFilter>
+                                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                                    <artifactId>liberty-maven-plugin</artifactId>
+                                    <versionRange>[1.0.0,)</versionRange>
+                                    <goals>
+                                        <goal>liberty:install-server</goal>
+                                        <goal>liberty:create-server</goal>
+                                        <goal>liberty:start</goal>
+                                        <goal>liberty:start-server</goal>
+                                        <goal>liberty:test-start-server</goal>
+                                        <goal>liberty:run</goal>
+                                        <goal>liberty:run-server</goal>
+                                        <goal>liberty:stop</goal>
+                                        <goal>liberty:stop-server</goal>
+                                        <goal>liberty:test-stop-server</goal>
+                                        <goal>liberty:debug</goal>
+                                        <goal>liberty:debug-server</goal>
+                                        <goal>liberty:package-server</goal>
+                                        <goal>liberty:clean-server</goal>
+                                        <goal>liberty:dump-server</goal>
+                                        <goal>liberty:java-dump-server</goal>
+                                        <goal>liberty:deploy</goal>
+                                        <goal>liberty:undeploy</goal>
+                                        <goal>liberty:install-feature</goal>
+                                        <goal>liberty:uninstall-feature</goal>
+                                        <goal>liberty:install-apps</goal>
+                                        <goal>liberty:compile-jsp</goal>
+                                        <goal>liberty:display-url</goal>
+                                        <goal>liberty:status</goal>
+                                        <goal>liberty:server-status</goal>
+                                    </goals>
+                                </pluginExecutionFilter>
+                                <action>
+                                    <ignore />
+                                </action>
+                            </pluginExecution>
+                        </pluginExecutions>
+                    </lifecycleMappingMetadata>
+                </configuration>
+            </plugin>
+
+        </plugins>
 
     </build>
 

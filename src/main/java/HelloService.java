@@ -1,7 +1,5 @@
-public class HelloService {
+public interface HelloService {
 
-    public String hello () {
-        return "Hello World!";
-    }
+    public String hello();
 
 }
