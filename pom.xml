@@ -5,7 +5,7 @@
     <groupId>frigo</groupId>
     <artifactId>cdi</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>liberty-assembly</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
