@@ -1,6 +1,3 @@
-
-package frigo.cdi;
-
 public class HungarianHelloService implements HelloService {
 
     @Override

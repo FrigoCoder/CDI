@@ -1,4 +1,3 @@
-package frigo.cdi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,7 +13,7 @@ public class GreeterClient {
 
     @GET
     @Path("hello")
-    public String hello() {
+    public String hello () {
         return hello.hello();
     }
 
