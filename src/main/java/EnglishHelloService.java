@@ -1,5 +1,4 @@
 @English
-@Secured
 public class EnglishHelloService implements HelloService {
 
     @Override
