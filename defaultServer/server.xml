@@ -10,4 +10,5 @@
     </featureManager>
     <httpEndpoint host="*" httpPort="80" id="defaultHttpEndpoint"/>
     <keyStore id="defaultKeyStore" password="changeit"/>
+    <webApplication contextRoot="/" id="cdi" location="CDI.war" name="cdi"/>
 </server>
