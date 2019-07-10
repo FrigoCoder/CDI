@@ -1,20 +1,19 @@
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import static frigo.Language.Languages.ENGLISH;
+import static frigo.Whatever.sayHello;
 
-@ApplicationScoped
-@Path("")
+import javax.inject.Inject;
+
+import frigo.Language;
+
 public class GreeterClient {
 
     @Inject
+    @Language(ENGLISH)
     private HelloService hello;
 
-    @GET
-    @Path("hello")
-    public String hello () {
-        return hello.hello();
+    public void hello () {
+        sayHello(hello.hello());
     }
 
 }
