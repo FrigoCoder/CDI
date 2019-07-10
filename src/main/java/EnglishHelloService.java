@@ -1,8 +1,5 @@
-import static frigo.Language.Languages.ENGLISH;
-
-import frigo.Language;
-
-@Language(ENGLISH)
+@English
+@Secured
 public class EnglishHelloService implements HelloService {
 
     @Override
