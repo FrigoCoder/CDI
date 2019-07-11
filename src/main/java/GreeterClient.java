@@ -1,4 +1,6 @@
 
+import static frigo.Whatever.display;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -6,11 +8,11 @@ import javax.inject.Inject;
 public class GreeterClient {
 
     @Inject
-    private User user;
+    private HelloService hello;
 
+    @Log
     public void greet () {
-        // user.id is 0
-        // user.name is null
+        display(hello.hello());
     }
 
 }

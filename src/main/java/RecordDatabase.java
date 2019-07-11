@@ -1,3 +1,5 @@
+import java.lang.annotation.Annotation;
+
 import javax.enterprise.event.Event;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
@@ -9,8 +11,9 @@ public class RecordDatabase {
     private Event<Record> recordAdded;
 
     public void addRecord (Record record) {
-        recordAdded.select(new AnnotationLiteral<Added>() {
-        }).fire(record);
+        Annotation annotation = new AnnotationLiteral<Added>() {
+        };
+        recordAdded.select(annotation).fire(record);
     }
 
 }
