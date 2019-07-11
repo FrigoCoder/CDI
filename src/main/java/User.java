@@ -1,8 +1,9 @@
-import java.io.Serializable;
+import javax.enterprise.context.RequestScoped;
 
-import javax.enterprise.context.SessionScoped;
+@RequestScoped
+public class User {
 
-@SessionScoped
-public class User implements Serializable {
+    protected int id;
+    protected String name;
 
 }

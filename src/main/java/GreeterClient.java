@@ -1,12 +1,16 @@
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+@ApplicationScoped
 public class GreeterClient {
 
     @Inject
-    private Service<Hello> hello;
+    private User user;
 
-    @Inject
-    private Service<Email> email;
+    public void greet () {
+        // user.id is 0
+        // user.name is null
+    }
 
 }

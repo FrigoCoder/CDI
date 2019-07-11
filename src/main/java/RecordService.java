@@ -5,6 +5,10 @@ import javax.inject.Inject;
 public class RecordService {
 
     @Inject
-    private LoginName name;
+    private User user;
+
+    public void printUser () {
+        System.out.println(user.name);
+    }
 
 }
