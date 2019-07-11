@@ -1,20 +1,22 @@
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 @ApplicationScoped
 public class GreeterClient {
 
     @Inject
-    private User user;
+    private Instance<String> user;
 
     @Inject
     private HelloService hello;
 
+    @Inject
+    private EmailService email;
+
     public void greet () {
-        user.getId();
-        user.getName();
-        hello.hello();
+        email.send(user.get() + " said " + hello.hello());
     }
 
 }
