@@ -7,4 +7,7 @@ public class Whatever {
 
     public static void doSomething () {}
 
+    public String readProperty (String propertyFile, String property) {
+        return "";
+    }
 }

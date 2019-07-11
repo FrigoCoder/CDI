@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 public class GreeterRest {
 
     @Inject
-    private HelloService hello;
+    private HelloDecorator hello;
 
     public GreeterRest () {
         System.out.println("Constructor " + hello);

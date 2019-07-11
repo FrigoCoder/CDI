@@ -1,7 +1,7 @@
 
 public class Database {
 
-    public Database (String string, String string2, String string3) {
+    public Database (String base, String user, String pass) {
         // TODO Auto-generated constructor stub
     }
 
