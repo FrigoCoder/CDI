@@ -1,18 +1,27 @@
 
-import static frigo.Whatever.display;
-
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class GreeterClient {
 
     @Inject
     private HelloService hello;
 
-    @Log
-    public void greet () {
-        display(hello.hello());
+    public GreeterClient () {
+        System.out.println("Constructor " + hello);
+    }
+
+    @PostConstruct
+    public void init () {
+        System.out.println("@PostConstruct " + hello);
+    }
+
+    @PreDestroy
+    public void teardown () {
+        System.out.println("@PreDestroy " + hello);
     }
 
 }

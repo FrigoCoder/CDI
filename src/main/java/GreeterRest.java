@@ -1,19 +1,35 @@
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@ApplicationScoped
+@RequestScoped
 @Path("")
 public class GreeterRest {
 
     @Inject
-    private User user;
+    private HelloService hello;
+
+    public GreeterRest () {
+        System.out.println("Constructor " + hello);
+    }
+
+    @PostConstruct
+    public void init () {
+        System.out.println("@PostConstruct " + hello);
+    }
+
+    @PreDestroy
+    public void teardown () {
+        System.out.println("@PreDestroy " + hello);
+    }
 
     @GET
     @Path("hello")
     public String hello () {
-        return user.getClass().toString();
+        return hello.hello();
     }
 
 }
