@@ -23,16 +23,15 @@ Database backup
 
 ----
 
+Observer ordering
+Asynchronous events and observers
+SPI
+Java 8 support
+
+
 CDI-Unit
-@Asynchronous
-
-CDI 1.0 3.5.1 Declaring a resource
-
-CDI 1.0 5.4.1 unproxyable bean types
 
 CreationalContext
-
-Java SE bootstrapping
 
 BeanManager
 
@@ -41,9 +40,5 @@ Non-contextual references
 Container lifecycle events / extensions
 
 EventMetadata
-@Vetoed
 
 Unmanaged
-
-•Specific CDI features for Java EE: Part III - CDI in Java EE.Major changesThis CDI 2.0 includes important changes for the platform.•The spec was split into 3 parts as described in Organisation of this document to add the supportfor Java SE.•API to boot CDI in Java SE, described in Bootstrapping a CDI container in Java SE•Observer ordering, described in Observer ordering•Asynchronous event, described in Firing events asynchronously•Configurators for major SPI elements in Configurators interfaces•Possibility to configure or veto observer method in ProcessObserverMethod event•Add built-in annotation literals in Built-in annotation literals•Make possible to apply interceptor on producer in The InterceptionFactory interface•Alignment on Java 8 features (streams, lambdas, repeating qualifiers)
-
