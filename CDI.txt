@@ -42,3 +42,8 @@ Container lifecycle events / extensions
 EventMetadata
 
 Unmanaged
+
+----
+
+Proxy mechanism and example for proxy
+Selection mechanism, based on annotations and qualifiers and types
